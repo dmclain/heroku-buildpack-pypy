@@ -1,9 +1,9 @@
 Heroku buildpack: PyPy
 ========================
 
-
-This is a [Heroku buildpack](http://devcenter.heroku.com/articles/buildpack) for Python apps.
 It uses [virtualenv](http://www.virtualenv.org/) and [pip](http://www.pip-installer.org/).
+
+[![Build Status](https://secure.travis-ci.org/heroku/heroku-buildpack-python.png?branch=master)](http://travis-ci.org/heroku/heroku-buildpack-python)
 
 Usage
 -----
@@ -17,8 +17,6 @@ To update an existing Heroku Cedar application to use this buildpack:
     $ heroku config:add BUILDPACK_URL=git://github.com/mtigas/heroku-buildpack-pypy.git
 
 and then re-deploy your application.
-
-----
 
 
 Example:
@@ -47,6 +45,10 @@ Example:
            Installing collected packages: Flask, Werkzeug, Jinja2
            Successfully installed Flask Werkzeug Jinja2
            Cleaning up...
+
+You can also add it to upcoming builds of an existing application:
+
+    $ heroku config:add BUILDPACK_URL=git@github.com:heroku/heroku-buildpack-python.git
 
 The buildpack will detect your app as Python if it has the file `requirements.txt` in the root. It will detect your app as Python/Django if there is an additional `settings.py` in a project subdirectory.
 

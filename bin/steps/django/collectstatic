@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set +e
+
+# Syntax sugar.
+indent() {
+  RE="s/^/       /"
+  [ $(uname) == "Darwin" ] && sed -l "$RE" || sed -u "$RE"
+}
+
+# Check if collectstatic is configured properly.
+python $MANAGE_FILE collectstatic --dry-run --noinput &> /dev/null && RUN_COLLECTSTATIC=true
+
+echo "-----> Collecting static files"
+
+# Compile assets if collectstatic appears to be kosher.
+if [ "$RUN_COLLECTSTATIC" ]; then
+    python $MANAGE_FILE collectstatic --noinput | indent
+
+    [ $? -ne 0 ] && {
+        echo " !     Error running manage.py collectstatic. More info:"
+        echo "       http://devcenter.heroku.com/articles/django-assets"
+        exit 1
+    }
+
+else
+    echo "       Django collecstatic is not configured. Learn more:"
+    echo "       http://devcenter.heroku.com/articles/django-assets"
+fi
+
+echo

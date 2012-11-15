@@ -1,7 +1,3 @@
-# A decent default .gitignore
-# Same as GitHub's at https://github.com/github/gitignore/blob/master/Python.gitignore
-# except keeps /bin directory.
-
 *.py[co]
 
 # Packages
@@ -28,3 +24,5 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+*.pyc
+site
