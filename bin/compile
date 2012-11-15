@@ -10,12 +10,12 @@ BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
 ROOT_DIR=$(dirname $BIN_DIR)
 BUILD_DIR=$1
 CACHE_DIR=$2
-PYPY_DIR=$CACHE_DIR/pypy-1.8
+PYPY_DIR=$CACHE_DIR/pypy-1.9
 
 NAME=$($BIN_DIR/detect $BUILD_DIR)
 PIP_DOWNLOAD_CACHE=${PIP_DOWNLOAD_CACHE:-$CACHE_DIR/pip_downloads}
 VENDORED_MEMCACHED="http://cl.ly/0a191R3K160t1w1P0N25/vendor-libmemcached.tar.gz"
-VENDORED_PYPY="https://bitbucket.org/pypy/pypy/downloads/pypy-1.8-linux64.tar.bz2"
+VENDORED_PYPY="https://bitbucket.org/pypy/pypy/downloads/pypy-1.9-linux64.tar.bz2"
 
 unset GIT_DIR
 export PIP_DOWNLOAD_CACHE
@@ -24,20 +24,20 @@ mkdir -p $CACHE_DIR
 mkdir -p $PIP_DOWNLOAD_CACHE
 
 ##########
-# Install pypy-1.8 in CACHE_DIR. Always rebuild it in case something has
-# effed up the CACHE_DIR/pypy-1.8 dir, but keep the tarball around so we don't
+# Install pypy-1.9 in CACHE_DIR. Always rebuild it in case something has
+# effed up the CACHE_DIR/pypy-1.9 dir, but keep the tarball around so we don't
 # have to re-download.
-if [ ! -f "$CACHE_DIR/pypy-1.8-linux64.tar.bz2" ]; then
+if [ ! -f "$CACHE_DIR/pypy-1.9-linux64.tar.bz2" ]; then
     cd $CACHE_DIR
-    echo "-----> Downloading pypy-1.8"
+    echo "-----> Downloading pypy-1.9"
     curl -sLO $VENDORED_PYPY
 else
-    echo "-----> pypy-1.8 in cache"
+    echo "-----> pypy-1.9 in cache"
 fi
 cd $CACHE_DIR
-rm -fr pypy-1.8
-mkdir pypy-1.8
-tar -jxf $CACHE_DIR/pypy-1.8-linux64.tar.bz2 -C $PYPY_DIR --strip-components 1
+rm -fr pypy-1.9
+mkdir pypy-1.9
+tar -jxf $CACHE_DIR/pypy-1.9-linux64.tar.bz2 -C $PYPY_DIR --strip-components 1
 ##########
 
 cd $BUILD_DIR
@@ -132,7 +132,7 @@ rm -fr $BUILD_DIR/lib-python/modified-2.7/lib2to3/tests/
 rm -fr $BUILD_DIR/lib_pypy/pypy_test/
 
 # Clean up pypy source dir in $CACHE_DIR.
-rm -fr $CACHE_DIR/pypy-1.8
+rm -fr $CACHE_DIR/pypy-1.9
 rm -fr $CACHE_DIR/bin
 rm -fr $CACHE_DIR/include
 rm -fr $CACHE_DIR/lib-python
